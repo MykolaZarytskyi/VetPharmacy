@@ -1,0 +1,26 @@
+# Build output
+api/VetPharmacy.Api/bin/
+api/VetPharmacy.Api/obj/
+api/VetPharmacy.Api.Tests/bin/
+api/VetPharmacy.Api.Tests/obj/
+api/.vs/
+.vs/
+
+
+# VS Code / Visual Studio
+.vscode/
+*.user
+*.suo
+.vs/
+
+# Logs
+*.log
+
+# Environment variables / secrets
+.env
+appsettings.Development.json
+secrets.json
+
+# OS files
+.DS_Store
+Thumbs.db
