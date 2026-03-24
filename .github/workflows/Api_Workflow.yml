@@ -48,7 +48,7 @@ jobs:
         run: dotnet restore api
 
       - name: Build
-        run: msbuild api/VetPharmacy.slnx /property:GenerateFullPaths=true /t:build /consoleloggerparameters:NoSummary
+        run: dotnet build api/VetPharmacy.slnx --no-restore --configuration Release
 
       - name: Run tests
         run: dotnet test api/VetPharmacy.Api.Tests --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Coverage"
