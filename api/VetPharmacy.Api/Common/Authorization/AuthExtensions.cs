@@ -1,6 +1,4 @@
-using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Net.Http.Headers;
 using VetPharmacy.Api.Features.Baskets.Authorization;
 
 namespace VetPharmacy.Api.Common.Authorization;

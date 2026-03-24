@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="VetPharmacy.Api/VetPharmacy.Api.csproj" />
+  <Project Path="VetPharmacy.Api.Tests/VetPharmacy.Api.Tests.csproj" />
+</Solution>
