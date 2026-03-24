@@ -1,0 +1,69 @@
+name: API Workflow
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - "api/VetPharmacy.Api/**"
+      - "api/VetPharmacy.Api.Tests/**"
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - "api/VetPharmacy.Api/**"
+      - "api/VetPharmacy.Api.Tests/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: vetpharmacy
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore api
+
+      - name: Build
+        run: msbuild api/VetPharmacy.slnx /property:GenerateFullPaths=true /t:build /consoleloggerparameters:NoSummary
+
+      - name: Run tests
+        run: dotnet test api/VetPharmacy.Api.Tests --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Coverage"
+        working-directory: api
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: api/**/TestResults/**
+
+      - name: Publish test results
+        if: always()
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: api/**/TestResults/**/*.trx
+          check_name: Test Results
+          comment_mode: always
