@@ -15,6 +15,7 @@ on:
     paths:
       - "api/VetPharmacy.Api/**"
       - "api/VetPharmacy.Api.Tests/**"
+    workflow_dispatch:
 
 jobs:
   test:
