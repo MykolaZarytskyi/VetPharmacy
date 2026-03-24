@@ -20,6 +20,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write        # Required to create the check run report
+      pull-requests: write # Required if you want the action to comment on PRs
 
     services:
       postgres:
