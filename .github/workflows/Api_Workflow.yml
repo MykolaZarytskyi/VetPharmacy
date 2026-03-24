@@ -51,7 +51,8 @@ jobs:
         run: dotnet build api/VetPharmacy.slnx --no-restore --configuration Release
 
       - name: Run tests
-        run: dotnet test api/VetPharmacy.slnx --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Coverage"
+        run: dotnet test VetPharmacy.slnx --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Coverage"
+        working-directory: api
 
       - name: Upload test results
         if: always()
